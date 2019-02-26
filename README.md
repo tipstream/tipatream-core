@@ -1,1 +1,1 @@
-# tipatream-core
+# tipstream-core
