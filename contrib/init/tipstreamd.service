@@ -1,0 +1,25 @@
+[Unit]
+Description=TipStream daemon
+After=network.target
+
+[Service]
+User=tipstream
+Group=tipstream
+
+Type=forking
+PIDFile=/home/tipstream/.tipstream/tipstreamd.pid
+ExecStart=/home/tipstream/TipStream/tipstreamd -daemon -pid=/home/tipstream/.tipstream/tipstreamd.pid \
+-conf=/home/tipstream/.tipstream/tipstream.conf -datadir=/home/tipstream/.tipstream
+
+ExecStop=/home/tipstream/TipStream/tipstream-cli -conf=/home/tipstream/.tipstream/tipstream.conf stop
+ExecStop=/usr/bin/sleep 25
+
+Restart=no
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target
